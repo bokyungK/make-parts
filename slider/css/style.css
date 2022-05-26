@@ -39,7 +39,7 @@ h1 {
     justify-content: center;
 }
 
-.button-container .button-left {
+.button-left {
     width: 40px;
     height: 40px;
     margin-right: 0.5rem;
@@ -49,7 +49,7 @@ h1 {
     line-height: 40px;
 }
 
-.button-container .button-right {
+.button-right {
     width: 40px;
     height: 40px;
     border-radius: 100%;
@@ -58,14 +58,18 @@ h1 {
     line-height: 40px;
 }
 
-.button-container .button-left:hover {
+.button-left-on:hover {
     cursor: pointer;
-    /* background-color: springgreen !important; */
+    background-color: orange !important;
+    transition: transform .5s;
+    transform: translate(-1px); 
 }
 
-.button-container .button-right:hover {
+.button-right-on:hover {
     cursor: pointer;
-    /* background-color: springgreen !important; */
+    background-color: orange !important;
+    transition: transform .5s;
+    transform: translate(1px); 
 }
 
 .card-container {
