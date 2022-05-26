@@ -6,7 +6,7 @@
 
 
 .inner {
-    width: 800px;
+    width: 810px;
     background-color: green;
     margin: 0 auto;
 }
@@ -60,10 +60,12 @@ h1 {
 
 .button-container .button-left:hover {
     cursor: pointer;
+    /* background-color: springgreen !important; */
 }
 
 .button-container .button-right:hover {
     cursor: pointer;
+    /* background-color: springgreen !important; */
 }
 
 .card-container {
@@ -71,13 +73,12 @@ h1 {
     height: 250px;
     display: flex;
     align-items: center;
-    padding-left: 10px;
 }
 
 .card-item {
     list-style: none;
     min-width: 150px;
-    margin-right: 10px;
+    margin-left: 10px;
     height: 200px;
     background-color: white;
 }
