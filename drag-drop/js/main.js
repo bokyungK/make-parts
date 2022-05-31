@@ -7,29 +7,20 @@ let nowPosition = 0;
 
 function touchEnd(event) {
     event.preventDefault();
-    // cardContainer.removeEventListener('mousedown', touchStart);
-    // window.removeEventListener('mousemove', touchMove);
 
     nowPosition = nowPosition + moveData;
     moveData = 0;
     mouseValue = 0;
 
+    cardContainer.style.transition = 'transform 1s';
+
     if (nowPosition > 0) {
-        cardContainer.style.transition = 'transform 1s';
         cardContainer.style.transform = 'translateX(0)';
         nowPosition = 0;
     } else if (nowPosition < -480) {
-        cardContainer.style.transition = 'transform 1s';
         cardContainer.style.transform = 'translateX(-480px)';
         nowPosition = -480;
     }
-    // setTimeout(() => {
-    //     cardContainer.addEventListener('mousedown', touchStart)
-    //     window.addEventListener('mousemove', touchMove);
-    // }, 500);
-
-    // window.removeEventListener('mouseup', touchEnd);
-    // window.removeEventListener('dragend', touchEnd);
 }
 
 function touchMove(event) {
@@ -39,23 +30,19 @@ function touchMove(event) {
         moveData = (event.clientX - startTouchX);
         cardContainer.style.transform = 'translateX(' + String(nowPosition + moveData) + 'px';
     }
-
 }
 
 function touchStart(event) {
     event.preventDefault();
 
+    cardContainer.style.removeProperty('transition');
     startTouchX = event.clientX;
     mouseValue = 1;
-
-    // window.addEventListener('mousemove', touchMove);
-    // window.addEventListener('mouseup', touchEnd);
-    // window.addEventListener('dragend', touchEnd);
-
-    cardContainer.style.removeProperty('transition');
 }
 
-cardContainer.addEventListener('mousedown', touchStart);
+for (let i = 0; i < cardItems.length; i++) {
+    cardItems[i].addEventListener('mousedown', touchStart);
+}
 window.addEventListener('mousemove', touchMove);
 window.addEventListener('mouseup', touchEnd);
 window.addEventListener('dragend', touchEnd);
