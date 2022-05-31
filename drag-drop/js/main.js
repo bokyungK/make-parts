@@ -1,5 +1,3 @@
-// 슬라이더 드래그 조작
-
 const cardItems = document.getElementsByClassName('card-item');
 const cardContainer = document.getElementsByClassName('card-container')[0];
 let moveData = 0;
@@ -13,13 +11,15 @@ function touchEnd(event) {
     nowPosition = nowPosition + moveData;
     mouseValue = 0;
 
-    // if (nowPosition > 0) {
-    //     cardContainer.style.transition = 'transform 1s';
-    //     cardContainer.style.transform = 'translateX(0)';
-    // } else if (nowPosition < -480) {
-    //     cardContainer.style.transition = 'transform 1s';
-    //     cardContainer.style.transform = 'translateX(-480px)';
-    // }
+    if (nowPosition > 0) {
+        cardContainer.style.transition = 'transform 1s';
+        cardContainer.style.transform = 'translateX(0)';
+        nowPosition = 0;
+    } else if (nowPosition < -480) {
+        cardContainer.style.transition = 'transform 1s';
+        cardContainer.style.transform = 'translateX(-480px)';
+        nowPosition = -480;
+    }
 }
 
 function touchMove(event) {
@@ -29,6 +29,7 @@ function touchMove(event) {
         moveData = (event.clientX - startTouchX);
         cardContainer.style.transform = 'translateX(' + String(nowPosition + moveData) + 'px';
     }
+
 }
 
 function touchStart(event) {
