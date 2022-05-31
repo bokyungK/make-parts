@@ -7,8 +7,11 @@ let nowPosition = 0;
 
 function touchEnd(event) {
     event.preventDefault();
+    // cardContainer.removeEventListener('mousedown', touchStart);
+    // window.removeEventListener('mousemove', touchMove);
 
     nowPosition = nowPosition + moveData;
+    moveData = 0;
     mouseValue = 0;
 
     if (nowPosition > 0) {
@@ -20,6 +23,13 @@ function touchEnd(event) {
         cardContainer.style.transform = 'translateX(-480px)';
         nowPosition = -480;
     }
+    // setTimeout(() => {
+    //     cardContainer.addEventListener('mousedown', touchStart)
+    //     window.addEventListener('mousemove', touchMove);
+    // }, 500);
+
+    // window.removeEventListener('mouseup', touchEnd);
+    // window.removeEventListener('dragend', touchEnd);
 }
 
 function touchMove(event) {
@@ -37,6 +47,10 @@ function touchStart(event) {
 
     startTouchX = event.clientX;
     mouseValue = 1;
+
+    // window.addEventListener('mousemove', touchMove);
+    // window.addEventListener('mouseup', touchEnd);
+    // window.addEventListener('dragend', touchEnd);
 
     cardContainer.style.removeProperty('transition');
 }
