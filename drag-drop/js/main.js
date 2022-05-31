@@ -5,22 +5,21 @@ const cardContainer = document.getElementsByClassName('card-container')[0];
 let moveData = 0;
 let mouseValue = 0;
 let startTouchX = 0;
-let position = 0;
-cardContainer.style.transition = 'transform 0s';
+let nowPosition = 0;
 
 function touchEnd(event) {
     event.preventDefault();
 
+    nowPosition = nowPosition + moveData;
     mouseValue = 0;
-    position = moveData;
 
-    if (position > 0) {
-        cardContainer.style.transition = 'transform 1s';
-        cardContainer.style.transform = 'translate(0)'
-    } else if (position < -480) {
-        cardContainer.style.transition = 'transform 1s';
-        cardContainer.style.transform = 'translate(-480px)';
-    }
+    // if (nowPosition > 0) {
+    //     cardContainer.style.transition = 'transform 1s';
+    //     cardContainer.style.transform = 'translateX(0)';
+    // } else if (nowPosition < -480) {
+    //     cardContainer.style.transition = 'transform 1s';
+    //     cardContainer.style.transform = 'translateX(-480px)';
+    // }
 }
 
 function touchMove(event) {
@@ -28,7 +27,7 @@ function touchMove(event) {
 
     if (mouseValue === 1) {
         moveData = (event.clientX - startTouchX);
-        cardContainer.style.transform = 'translateX(' + String(moveData) + 'px';
+        cardContainer.style.transform = 'translateX(' + String(nowPosition + moveData) + 'px';
     }
 }
 
