@@ -27,7 +27,6 @@ function touchEnd(event) {
     mouseValue = 0;
 
     cardContainer.style.transition = 'transform 1s';
-    console.log(nowPosition);
 
     if (nowPosition > 0) {
         removeStartEvent();
@@ -35,7 +34,6 @@ function touchEnd(event) {
         nowPosition = 0;
         addStartEvent();
     } else if (nowPosition < -((cardItems.length * (cardItems[0].clientWidth + 10)) - innerBox.clientWidth + 10)) {
-        console.log(nowPosition);
         removeStartEvent();
         cardContainer.style.transform = 'translateX(-480px)';
         nowPosition = -480;
