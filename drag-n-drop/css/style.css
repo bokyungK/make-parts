@@ -87,4 +87,5 @@ h1 {
     margin-left: 10px;
     height: 200px;
     background-color: white;
+    box-shadow: 1px 1px;
 }
