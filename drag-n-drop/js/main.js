@@ -2,8 +2,9 @@
 const buttonLeft = document.getElementsByClassName('button-left')[0];
 const buttonRight = document.getElementsByClassName('button-right')[0];
 const cardContainer = document.getElementsByClassName('card-container')[0];
-let liList = cardContainer.children;
+const liList = cardContainer.children;
 let moveData = 0;
+
 buttonLeft.style.backgroundColor = 'lightgray';
 buttonRight.classList.add('button-right-on');
 
@@ -72,7 +73,8 @@ let startLi = 0;
 let startLiX = 0;
 let mouseValue = 0;
 let moveDist = 0;
-const blankLi = document.createElement('li');
+let cardMove = 0;
+const arrLiList = Array.from(liList);
 
     // 드래그 이벤트
 function startDrag (event) {
@@ -94,23 +96,80 @@ function moveDrag (event) {
     event.preventDefault();
 
     moveDist = event.clientX - startLiX;
-    console.log(moveDist); // 250wjd
     startLi.style.transform = 'translateX(' + String(moveDist) + 'px';
-    // if (moveDist > 80) {
-    // } 
+    const nextCard = startLi.nextElementSibling;
+    const previousCard = startLi.previousElementSibling;
+
+    // 우측 이동
+    if (moveDist > 230 && moveDist < 460) {
+        // 카드 한 번만 넘긴 경우
+        cardMove = 1;
+        nextCard.style.transform = 'translateX(-160px)';
+    } else if (moveDist < 230) {
+        // 카드 안 넘긴 경우
+        cardMove = 0;
+        nextCard.style.transform = 'translateX(0)';
+    }
+
+    // 좌측 이동
+    if (moveDist < -230 && moveDist > -460) {
+        cardMove = 1;
+        previousCard.style.transform = 'translateX(160px)';
+    } else if (moveDist > - 230) {
+        cardMove = 0;
+        previousCard.style.transform = 'translateX(0)';
+    }
 }
 
 function endDrag (event) {
     event.preventDefault();
 
-    startLi.style.transition = 'transform .5s';
-    startLi.style.transform = 'translateX(0)';
-    startLi.style.removeProperty('z-index');
-
+    // 위치 조정해도 문제 없는지 확인하기
     window.removeEventListener('mousemove', moveDrag);
     window.removeEventListener('mouseup', endDrag);
     window.removeEventListener('dragend', endDrag);
 
+    startLi.style.removeProperty('z-index');
+    const nextCard = startLi.nextElementSibling;
+    const previousCard = startLi.previousElementSibling;
+
+    // 카드 우측 이동 결과
+    if (moveDist > 230 && moveDist < 460) {
+        startLi.style.transform = 'translateX(160px)';
+        cardMove = 0;
+
+        // 카드 순서 갱신
+        const standardCard = nextCard.nextElementSibling;
+        cardContainer.removeChild(startLi);
+        startLi.style.removeProperty('transform');
+        cardContainer.removeChild(nextCard);
+        nextCard.style.removeProperty('transform');
+
+        cardContainer.insertBefore(startLi, standardCard);
+        cardContainer.insertBefore(nextCard, standardCard.previousElementSibling);
+    } else {
+        startLi.style.transition = 'transform .5s';
+        startLi.style.transform = 'translateX(0)';
+    }
+
+    // 카드 좌측 이동 결과
+    if (moveDist < -230 && moveDist > -460) {
+        startLi.style.transform = 'translateX(-160px)';
+        cardMove = 0;
+
+        // 카드 순서 갱신
+        const standardCard = startLi.nextElementSibling;
+        cardContainer.removeChild(startLi);
+        startLi.style.removeProperty('transform');
+        cardContainer.removeChild(previousCard);
+        previousCard.style.removeProperty('transform');
+
+        cardContainer.insertBefore(previousCard, standardCard);
+        cardContainer.insertBefore(startLi, standardCard.previousElementSibling);
+    } else {
+        startLi.style.transition = 'transform .5s';
+        startLi.style.transform = 'translateX(0)';
+    }
     moveDist = 0;
     startLi = 0;
 }
@@ -119,4 +178,3 @@ function endDrag (event) {
 for (let i = 0; i < liList.length; i++) {
     liList[i].addEventListener('mousedown', startDrag);
 }
-
